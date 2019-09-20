@@ -1,0 +1,16 @@
+version: '3.7'
+services:
+  postgres-wiki-parser:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: root
+
+  python-wiki-parser:
+    build: .
+    command: "python src/main.py"
+    volumes:
+      - .:/code/
+    depends_on:
+      - postgres-wiki-parser
